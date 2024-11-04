@@ -1,0 +1,34 @@
+.cardtools {
+  padding: 3em;
+  background-color: #1e1e1e; /* Fondo de la tarjeta en gris oscuro */
+  color: rgb(255, 255, 255); /* Texto en color blanco */
+  border-radius: 10px;
+}
+
+.containertools{
+  background-image: url('public/tool_crib.jpg');
+  background-size: cover; /* Ajusta la imagen para que cubra todo el contenedor */
+  background-position: center; /* Centra la imagen en el contenedor */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  height: 100vh;
+  margin: 0;
+}
+
+.navbartools{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.navbartools-brand {
+  margin: 0;
+  padding: 0;
+  display: block; /* Asegura que el contenido se ajuste al ancho del contenedor */
+}
+
+.navbartools-header {
+  margin: 0;
+  padding: 0;
+}
+
+

@@ -1,0 +1,273 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: linear-gradient(to right, #ffffff, #dddddd);
+  color: black;
+}
+
+
+
+.date-input {
+  padding: 3px;
+  font-size: 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 125px;
+  background-color: #f9f9f9;
+}
+
+.date-input:focus {
+  border-color: #0000;
+  outline: none;
+  background-color: #fff;
+}
+
+.date-input::-webkit-datetime-edit {
+  color: #000000;
+  font-weight: bold;
+}
+
+.date-input::-moz-placeholder {
+  color: #999;
+}
+
+.table-container {
+  margin-top: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 1px;
+  text-align: left;
+  border-bottom: 1px solid #8d9196;
+}
+
+.filter-button-left {
+  padding: 2px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #c9c9c9;
+  color: black;
+  cursor: pointer;
+}
+.filter-button-right {
+  padding: 2px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #c0c0c0;
+  color: black;
+  cursor: pointer;
+}
+
+.filter-button-right:hover {
+  background-color: #8d9196;
+}
+
+.filter-button-left:hover {
+  background-color: #8d9196;
+}
+
+th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+tr:hover {
+  background-color: #8d9196;
+}
+
+.h1-with-image {
+  display: flex;
+  align-items: center;
+}
+.h1-with-image img {
+  margin-top: 3px;
+  padding-left: 20px;
+  margin-right: 10px; /* Espacio entre la imagen y el texto */
+  width: 108px; /* Ajusta el ancho de la imagen */
+  height: 38px; /* Ajusta la altura de la imagen */
+  margin-bottom: 3px;
+
+}
+
+.header {
+  background: linear-gradient(to left, #000000, #ece5e5);
+  color: #fff;
+  padding: 2px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+}
+
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+}
+
+.nav a:hover {
+  background-color: #444;
+  border-radius: 5px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background: linear-gradient(to top, #000000, #474747);
+  border-radius: 7px;
+  padding: 10px 0;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+}
+
+.dropdown-content a {
+  padding: 10px 20px;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #444;
+}
+
+.fondo {
+  margin-top: 45px;
+  height: calc(100vh - 45px);
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.fondo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spinner {
+  width: 20px; /* Ajusta el tamaño según tus necesidades */
+  height: 20px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #333;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+
+.excel_button {
+  width: 29px; /* Ajusta el tamaño según tus necesidades */
+  height: 29px;
+  background-image: url('/excel.png');
+  background-size: cover;
+  background-position: center;
+  border: none; /* Elimina el borde del botón */
+  cursor: pointer; /* Cambia el cursor a pointer */
+}
+
+.excel_button:hover{
+  background-color: #8d9196;
+}
+
+.title {
+  font-family: 'Arial';
+  color: #000000;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+label {
+  display: block;
+}
+
+.form {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  position: absolute;
+  object-fit: cover;
+}
+
+.input-user{
+  display: block;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 5px 0 10px 0;
+  border-radius: 7px;
+}
+
+.button-login{
+  background-color: rgb(0, 0, 0);
+  padding: 10px;
+  border: 0;
+  min-width: 100px;
+  border-radius: 7px;
+  color: white;
+}
+
+
+.fondologin {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+

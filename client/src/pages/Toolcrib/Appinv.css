@@ -1,0 +1,120 @@
+/* App.css */
+.login-background {
+  background-image: url('/public/tool_crib.jpg'); /* Ruta desde la carpeta public */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  margin: 0;
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #cfcfcfaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 3em;
+  background-color: #000000; /* Fondo de la tarjeta en gris oscuro */
+  color: rgb(255, 255, 255); /* Texto en color blanco */
+  border-radius: 10px;
+}
+
+
+
+/* Estilos para los inputs */
+.form-control {
+  color: #ffffff; /* Texto ya ingresado en blanco */
+  background-color: #444242; /* Fondo del input en gris oscuro */
+  border: 2px solid #ffffff; /* Borde gris */
+}
+
+
+
+.read-the-docs {
+  color: #9c7a7a00;
+}
+
+
+/* Centra el contenido del card-body */
+.center-body {
+  display: flex;
+  flex-direction: column; /* Alinea los elementos en columna */
+  align-items: center; /* Centra los elementos horizontalmente */
+  justify-content: center; /* Centra los elementos verticalmente */
+  padding: 20px; /* Espaciado interno */
+  text-align: center; /* Alinea el texto al centro, opcional si se desea centrar el texto */
+  height: 100%; /* Asegura que el contenedor ocupe todo el alto disponible */
+}
+
+.header {
+  background: linear-gradient(to left, #000000, #ece5e5);
+  color: #fff;
+  padding: 2px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background: linear-gradient(to top, #000000, #474747);
+  border-radius: 7px;
+  padding: 10px 0;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+}
+
+.dropdown-content a {
+  padding: 10px 20px;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #444;
+}
+
