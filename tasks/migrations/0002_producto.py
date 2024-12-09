@@ -27,7 +27,8 @@ class Migration(migrations.Migration):
                     ('USD', 'Dólares Americanos')
                 ], default='MXN')),
                 # Agregar el campo de comentarios
-                ('comentarios', models.TextField(blank=True, null=True)),  # Campo para comentarios
+                ('comentarios', models.TextField(blank=True, null=True)),  # Campo para comentarios,
+       
             ],
         ),
     ]

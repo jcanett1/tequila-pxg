@@ -5,6 +5,7 @@ import './newproduct.css';
 
 const NewProduct = () => {
   const [tipoProducto, setTipoProducto] = useState('nuevo'); // Estado para el tipo de producto
+  const [manejaMinMax, setManejaMinMax] = useState(false); // Estado para manejar opción de cantidad mínima y máxima
   const [producto, setProducto] = useState({
     descripcion: '',
     precio: '',
@@ -15,7 +16,9 @@ const NewProduct = () => {
     numero_serie: '',
     moneda: 'MXN',
     comentarios: '',
-    tipo_producto: 'nuevo' // Agregar tipo_producto al estado
+    tipo_producto: 'nuevo' ,// Agregar tipo_producto al estado
+    cantidad_minima: '',
+    cantidad_maxima: ''
   });
   const [productos, setProductos] = useState([]);
   const [error, setError] = useState('');
@@ -36,7 +39,7 @@ const NewProduct = () => {
     const { name, value } = e.target;
     setProducto({
       ...producto,
-      [name]: value ,
+      [name]: value,
       tipo_producto: tipoProducto // Asegurarse de que tipo_producto se actualice
     });
   };
@@ -54,9 +57,17 @@ const NewProduct = () => {
       numero_serie: '',
       moneda: 'MXN',
       comentarios: '',
-      tipo_producto: e.target.value // Actualiza el tipo_producto al cambiar
+      tipo_producto: nuevoTipo ,// Actualiza el tipo_producto al cambiar
+      cantidad_minima: '',
+      cantidad_maxima: ''
     });
   };
+
+
+  const handleManejaMinMaxChange = (e) => {
+    setManejaMinMax(e.target.value === 'si');
+  };
+
 
   const handleProductoExistenteChange = (e) => {
     const productoSeleccionado = productos.find(
@@ -64,6 +75,7 @@ const NewProduct = () => {
     );
     setProducto(productoSeleccionado ? { ...productoSeleccionado, tipo_producto: 'existente' } : {});
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -75,10 +87,7 @@ const NewProduct = () => {
       setError('');
     }
 
-
-
-
-
+    console.log(producto); // Añadir esta línea para ver el contenido de `producto`
 
     try {
       const response = await axios.post('http://localhost:8000/api/productos/agregar/', producto);
@@ -95,7 +104,9 @@ const NewProduct = () => {
         numero_serie: '',
         moneda: 'MXN',
         comentarios: '',
-        tipo_producto: 'nuevo' // Reiniciar tipo_producto
+        tipo_producto: 'nuevo', // Reiniciar tipo_producto
+        cantidad_minima: '',
+        cantidad_maxima: ''
       });
     } catch (error) {
       console.error('Error al agregar el producto', error);
@@ -167,6 +178,38 @@ const NewProduct = () => {
                 <label>Comentarios:</label>
                 <textarea name="comentarios" value={producto.comentarios} onChange={handleChange}></textarea>
               </div>
+
+                {/* Manejo de cantidad mínima y máxima */}
+                <div className="form-group">
+                <label>¿Maneja cantidad mínima y máxima?</label>
+                <select onChange={handleManejaMinMaxChange}>
+                  <option value="no">No</option>
+                  <option value="si">Sí</option>
+                </select>
+              </div>
+
+              {manejaMinMax && (
+                <>
+                  <div className="form-group">
+                    <label>Cantidad Mínima:</label>
+                    <input
+                      type="number"
+                      name="cantidad_minima"
+                      value={producto.cantidad_minima}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Cantidad Máxima:</label>
+                    <input
+                      type="number"
+                      name="cantidad_maxima"
+                      value={producto.cantidad_maxima}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </>
+ )}
             </>
           ) : (
             <>
@@ -195,7 +238,7 @@ const NewProduct = () => {
               </div>
               <div className="form-group">
                 <label>Cantidad:</label>
-                <input type="number" name="cantidad" value={producto.cantidad} readOnly />
+                <input type="number" name="cantidad" value={producto.cantidad} onChange={handleChange} />
               </div>
               <div className="form-group">
                 <label>Unidad:</label>
@@ -207,7 +250,7 @@ const NewProduct = () => {
               </div>
               <div className="form-group">
                 <label>Fecha de ingreso:</label>
-                <input type="date" name="fecha_ingreso" value={producto.fecha_ingreso} readOnly />
+                <input type="date" name="fecha_ingreso" value={producto.fecha_ingreso} onChange={handleChange} />
               </div>
               <div className="form-group">
                 <label>Número de serie:</label>
@@ -221,6 +264,39 @@ const NewProduct = () => {
                 <label>Comentarios:</label>
                 <textarea name="comentarios" value={producto.comentarios} readOnly></textarea>
               </div>
+ 
+  {/* Manejo de cantidad mínima y máxima */}
+  <div className="form-group">
+                <label>¿Maneja cantidad mínima y máxima?</label>
+                <select onChange={handleManejaMinMaxChange} value={manejaMinMax ? 'si' : 'no'}>
+                  <option value="no">No</option>
+                  <option value="si">Sí</option>
+                </select>
+              </div>
+
+              {manejaMinMax && (
+                <>
+                  <div className="form-group">
+                    <label>Cantidad Mínima:</label>
+                    <input
+                      type="number"
+                      name="cantidad_minima"
+                      value={producto.cantidad_minima}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Cantidad Máxima:</label>
+                    <input
+                      type="number"
+                      name="cantidad_maxima"
+                      value={producto.cantidad_maxima}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </>
+ )}
+            
             </>
           )}
 
@@ -236,7 +312,7 @@ const NewProduct = () => {
           <ul>
             {productos.map((prod) => (
               <li key={prod.id}>
-                {prod.descripcion} - {prod.precio} {prod.moneda} - {prod.cantidad} - {prod.unidad} - {prod.comentarios} - {prod.tipo_producto} {/* Mostrar tipo de producto */}
+                {prod.descripcion} - {prod.precio} {prod.moneda} - {prod.cantidad} - {prod.unidad} - {prod.comentarios} - {prod.tipo_producto} - {prod.cantidad_maxima} - {prod.cantidad_minima}{/* Mostrar tipo de producto */}
               </li>
             ))}
           </ul>

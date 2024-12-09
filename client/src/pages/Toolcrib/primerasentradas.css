@@ -1,0 +1,107 @@
+
+  /* Estilos para el formulario */
+.form5 {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  position: absolute; /* Posiciona el formulario de forma absoluta */
+  top: 50%; /* Lo mueve a la mitad de la altura */
+  left: 50%; /* Lo mueve a la mitad del ancho */
+  transform: translate(-50%, -50%); /* Ajusta la posición para que esté centrado */
+  width: 80%; /* Asegura que sea responsivo */
+  max-width: 600px; /* Limita el tamaño máximo del formulario */
+}
+  
+
+
+
+
+
+    /* Etiquetas de los campos */
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #555;
+      }
+      
+
+  /* Campos de entrada */
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  /* Botón de envío */
+  button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Hover para el botón */
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Área de comentarios */
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  /* Estilo para los mensajes de error (opcional) */
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilo para selectores */
+  select {
+    background-color: #fff;
+    appearance: none;
+  }
+  
+  /* Responsividad para pantallas pequeñas */
+  @media (max-width: 480px) {
+    div {
+      width: 90%;
+    }
+    button[type="submit"] {
+      font-size: 14px;
+    }
+  }
+
+
+  .btn-submit3 {
+    background-color: #06468f; /* Color de fondo verde */
+    color: white; /* Texto en blanco */
+    padding: 10px 20px; /* Espaciado alrededor del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de la fuente */
+    cursor: pointer; /* Muestra un cursor tipo puntero */
+    transition: background-color 0.3s ease; /* Transición suave al pasar el ratón */
+  }
+  
+  .btn-submit3:hover {
+    background-color: #013353; /* Color de fondo cuando el mouse pasa por encima */
+  }

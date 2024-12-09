@@ -43,7 +43,7 @@ const Header = ({ setIsAuthenticated, userEmail }) => {
               fontWeight: 'bold',
               fontSize: 14,
               color: 'black',
-              marginLeft: 14,
+              marginLeft: 29,
               marginTop: 6,
             }}
           >

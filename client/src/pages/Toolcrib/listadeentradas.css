@@ -1,0 +1,298 @@
+
+
+
+
+/* Filas alternadas con diferentes colores para mayor legibilidad */
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd; /* Resaltar fila cuando el ratón pasa por encima */
+}
+
+
+
+
+/* Estilo para las celdas de fecha */
+td:nth-child(6) {
+  text-align: center;
+}
+
+/* Estilo para las celdas de cantidad mínima y máxima */
+td:nth-child(7),
+td:nth-child(8) {
+  text-align: center;
+}
+
+/* Estilo para las celdas de comentarios */
+td:nth-child(10) {
+  max-width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* Estilos generales para el <thead> */
+thead {
+  background-color: #0d0d0e; /* Fondo claro */
+  border-bottom: 2px solid #212222; /* Línea inferior */
+}
+
+/* Estilos para las filas del encabezado */
+thead tr {
+  height: 50px; /* Altura de la fila */
+}
+
+/* Fondo para los <th> */
+thead th {
+  background-color: #000000; /* Color de fondo (azul) */
+  color: #ffffff; /* Color del texto (blanco) */
+  font-size: 1rem; /* Tamaño de fuente */
+  padding: 10px; /* Espaciado interno */
+  text-align: center; /* Centrar el texto */
+  border: 1px solid #dee2e6; /* Bordes */
+}
+
+/* Última columna sin borde derecho */
+thead th:last-child {
+  border-right: none;
+}
+
+/* Efecto al pasar el mouse */
+thead th:hover {
+  background-color: #868686; /* Fondo al pasar el mouse */
+  color: #0f0f0f; /* Color del texto más oscuro */
+  cursor: pointer; /* Cambiar a puntero */
+}
+
+/* Estilo para toda la tabla (opcional) */
+table {
+  width: 100%; /* Ancho completo */
+  border-collapse: collapse; /* Sin bordes dobles */
+  font-family: Arial, sans-serif; /* Fuente */
+  margin: -100px 0; /* Espaciado exterior */
+}
+
+/* Bordes generales de la tabla */
+table, th, td {
+  border: 1px solid #dee2e6; /* Bordes de la tabla */
+}
+
+
+/* Contenedor principal */
+.product-container {
+
+  padding: 80px;
+  font-family: Arial, sans-serif;
+}
+
+/* Campo de búsqueda */
+.product-search {
+  width: 100%;
+  max-width: 400px;
+  margin: 2% -3px auto; /* Espaciado debajo */
+  display: block;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* Título debajo */
+.product-title {
+  margin-top: 10px; /* Opcional: Espaciado adicional si es necesario */
+  text-align: left;
+  font-size: 2rem;
+  color: #000000;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+
+.product-search:focus {
+  border-color: #007bff;
+}
+
+/* Mensaje de éxito o error */
+.product-message {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.product-message.success {
+  color: green;
+}
+
+.product-message.error {
+  color: red;
+}
+
+/* Texto si no hay entradas */
+.no-entries {
+  text-align: center;
+  font-size: 1rem;
+  color: #6c757d; /* Gris neutro */
+}
+
+.export-buttons {
+  display: flex;
+  justify-content: right; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 8vh; /* Asegura que ocupe toda la altura de la ventana */
+}
+
+.export-btn {
+  margin: 0 10px; /* Espaciado entre botones */
+  padding: 10px 20px; /* Ajusta el tamaño de los botones */
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.excel-btn {
+  background-color: #4caf50; /* Verde */
+  color: white;
+}
+
+.excel-btn:hover {
+  background-color: #45a049;
+}
+
+.pdf-btn {
+  background-color: #f44336; /* Rojo */
+  color: white;
+}
+
+.pdf-btn:hover {
+  background-color: #e53935;
+}
+
+.modificar-btn {
+  background-color: #10519b; /* Verde */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 13px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modificar-btn:hover {
+  background-color: #043653; /* Un verde más oscuro al hacer hover */
+}
+
+.eliminar-btn {
+  background-color: #f44336; /* Rojo */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 13px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.eliminar-btn:hover {
+  background-color: #e53935; /* Rojo más oscuro al hacer hover */
+}
+
+/* General styles */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 1); /* Blanco opaco */
+  border-radius: 8px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1000; /* Asegura que el formulario esté encima del overlay */
+}
+
+input, select, textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #911f1f;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #0a0a0a; /* Green border on focus */
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Placeholder styles */
+input::placeholder, textarea::placeholder {
+  color: #888;
+}
+
+/* Button styles */
+button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049; /* Darker green */
+}
+
+button[type="button"] {
+  background-color: #f44336; /* Red */
+  color: white;
+}
+
+button[type="button"]:hover {
+  background-color: #e53935; /* Darker red */
+}
+
+/* Select and textarea specific styles */
+select {
+  appearance: none; /* Removes default dropdown arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><path d="M0 3l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px; /* Make space for the custom arrow */
+}
+
+select:focus {
+  border-color: #0c0c0c;
+}
+
+.form-title3 {
+  font-size: 24px; /* Tamaño del texto */
+  font-weight: bold; /* Negrita */
+  color: #333; /* Color oscuro para el texto */
+  margin-bottom: 20px; /* Espacio debajo del título */
+  text-align: center; /* Centrado horizontal */
+  text-transform: uppercase; /* Convertir el texto a mayúsculas */
+  letter-spacing: 2px; /* Espaciado entre letras */
+  border-bottom: 2px solid #000000; /* Línea debajo del título con color verde */
+  padding-bottom: 10px; /* Espacio entre el título y la línea */
+}

@@ -1,0 +1,312 @@
+/* Estilos generales */
+.list-container {
+    padding: 20px;
+    background-color: #a12020;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 10px auto;
+  }
+  
+  /* Estilo para el título */
+  h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Estilo para la lista de proveedores */
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 8px 0;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  li:hover {
+    transform: scale(1.02);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo para el nombre del proveedor */
+  li span {
+    font-size: 18px;
+    color: #555;
+    font-weight: 500;
+  }
+  
+  /* Estilos de carga y error */
+  .loading,
+  .error {
+    text-align: center;
+    font-size: 18px;
+    color: #888;
+    margin-top: 20px;
+  }
+  
+/* Estilos para el botón de modificar */
+table tbody td .button-modificar {
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #fff; /* Color de texto blanco */
+    background-color: #286aa7; /* Color verde para modificar */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  table tbody td .button-modificar:hover {
+    background-color: #286aa7; /* Color verde más oscuro al pasar el mouse */
+    transform: scale(1.05); /* Efecto de agrandamiento */
+  }
+  
+  /* Estilos para el botón de eliminar */
+  table tbody td .button-eliminar {
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #fff; /* Color de texto blanco */
+    background-color: #dc3545; /* Color rojo para eliminar */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  table tbody td .button-eliminar:hover {
+    background-color: #c82333; /* Color rojo más oscuro al pasar el mouse */
+    transform: scale(1.05); /* Efecto de agrandamiento */
+  }
+  
+  /* Estilo cuando el botón es presionado */
+  table tbody td button:active {
+    background-color: #004085; /* Color de fondo cuando se hace clic en el botón */
+  }
+
+  /* Estilos para los botones de exportación */
+
+/* Estilos para el botón de Exportar a Excel */
+.button-exportar-excel {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff; /* Texto blanco */
+    background-color: #1f9432; /* Azul para el botón de Exportar a Excel */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .button-exportar-excel:hover {
+    background-color: #0056b3; /* Azul más oscuro cuando el mouse pasa por encima */
+    transform: scale(1.05); /* Efecto de agrandamiento */
+  }
+  
+  .button-exportar-excel:active {
+    background-color: #004085; /* Color cuando se hace clic */
+  }
+  
+  /* Estilos para el botón de Exportar a PDF */
+  .button-exportar-pdf {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff; /* Texto blanco */
+    background-color: #e60000; /* Rojo para el botón de Exportar a PDF */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .button-exportar-pdf:hover {
+    background-color: #c70000; /* Rojo más oscuro cuando el mouse pasa por encima */
+    transform: scale(1.05); /* Efecto de agrandamiento */
+  }
+  
+  .button-exportar-pdf:active {
+    background-color: #a30000; /* Color cuando se hace clic */
+  }
+
+/* Estilos para el botón de Exportar a PDF */
+.button-agregar-proveedor {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff; /* Texto blanco */
+    background-color: #292929; /* Rojo para el botón de Exportar a PDF */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+
+
+
+
+  /* Estilos para el modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .modal-content {
+    background-color: rgb(162, 175, 189);
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+  }
+  
+  button[type="submit"], button[type="button"] {
+    margin-top: 10px;
+  }
+
+
+/* Estilo específico para el <h2> dentro del modal */
+.modal-content h2 {
+    font-size: 24px;        /* Tamaño de la fuente */
+    font-weight: bold;      /* Fuente en negrita */
+    color: #ffffff;            /* Color del texto */
+    text-align: center;     /* Alineación centrada */
+    margin-bottom: 20px;    /* Espacio debajo del <h2> */
+    font-family: 'Arial', sans-serif; /* Tipo de letra */
+    background-color: #000000; /* Fondo del h2 */
+    padding: 10px;          /* Relleno dentro del h2 */
+    border-radius: 5px;     /* Bordes redondeados */
+  }
+
+
+/* Contenedor para centrar y mover la tabla hacia abajo */
+.table-container2 {
+  display: flex;
+  justify-content: start; /* Centra horizontalmente la tabla */
+  align-items: flex-start; /* Alinea la tabla al inicio verticalmente */
+  padding: 20px;
+  background-color: #f5f5f5;
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+  padding-top: 100px; /* Espaciado superior para mover la tabla */
+}
+
+/* Estilo general para la tabla dentro del contenedor table-container2 */
+.table-container2 table {
+  width: 100%; /* Ocupa el 100% del ancho disponible */
+  max-width: none; /* Permite que se expanda al 100% */
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Encabezados de la tabla */
+.table-container2 table thead {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.table-container2 table th,
+.table-container2 table td {
+  text-align: left;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+/* Alternar colores para las filas */
+.table-container2 table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.table-container2 table tbody tr:nth-child(even) {
+  background-color: #f1f1f1;
+}
+
+/* Hover en filas */
+.table-container2 table tbody tr:hover {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+/* Botones */
+.table-container2 button.button-modificar {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.table-container2 button.button-eliminar {
+  background-color: #DC3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Hover en botones */
+.table-container2 button.button-modificar:hover {
+  background-color: #0056b3;
+}
+
+.table-container2 button.button-eliminar:hover {
+  background-color: #a71d2a;
+}
+
+
+/* Estilo de la tabla */
+.section-table {
+  margin-top: 20px;
+}
+
+
+/* Estilo del buscador */
+.section-search {
+  width: 100%;
+  max-width: 475px;
+  margin: 2% -3px auto; /* Espaciado debajo */
+  display: block;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* Contenedor para organizar ProductHead y el título */
+.container-header-title {
+  
+  flex-direction: column; /* Para alinear elementos en columna */
+  align-items: center;    /* Centra horizontalmente */
+  margin-top: 80px;       /* Espacio superior */
+  margin-bottom: 100px;    /* Espacio inferior */
+}
+
+
+
+/* Estilo para el título (h1) */
+.header-title {
+  font-size: 24px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  color: #333; /* Color gris oscuro */
+  margin: 0; /* Elimina el margen por defecto */
+  text-align: center; /* Centra el texto */
+}

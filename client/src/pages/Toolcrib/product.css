@@ -1,0 +1,519 @@
+.container {
+  width: calc(100% - 40px); /* Ocupa casi todo el ancho */
+  max-width:  100%; /* Permite que se expanda al ancho completo */
+  margin: 120px auto; /* Ajusta el margen superior para que quede debajo del header */
+  padding:15px; /* Espaciado interno */
+  background-color: #3a3a3adc; /* Fondo del contenedor */
+  border-radius: 20px; /* Bordes redondeados */
+  box-shadow: 1 4px 6px rgb(0, 0, 0); /* Sombra */
+  color: rgb(17, 17, 17); /* Texto blanco */
+  font-weight: normal; /* Texto en negrita */
+  
+}
+
+
+/* Estilos para el encabezado del producto */
+.container h1 {
+  font-size: 22px; /* Tamaño de fuente */
+  font-weight: bold; /* Fuente en negrita */
+  color: #ffffff; /* Color oscuro */
+  text-align: center; /* Alineación centrada */
+  margin-bottom: 0px; /* Espaciado inferior */
+  text-transform: uppercase; /* Texto en mayúsculas */
+  letter-spacing: 1.5px; /* Espaciado entre letras */
+}
+
+
+/* Estilo para el contenedor de botones */
+.button-container {
+  display: flex; /* Activa Flexbox */
+  justify-content: center; /* Centra los botones horizontalmente */
+  gap: 10px; /* Espaciado entre botones */
+  margin: 10px auto; /* Espaciado y centrado del contenedor */
+  padding: 10px; /* Espaciado interno */
+  max-width: 500px; /* Ancho máximo */
+}
+
+
+
+
+/* Estilo para los botones */
+.button-container button {
+  flex: 1 30px; /* Botones con el mismo ancho */
+  padding: 10px 15px; /* Espaciado interno */
+  font-size: 16px; /* Tamaño del texto */
+  color: #ffffff; /* Color del texto */
+  border: none; /* Sin bordes */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor de mano */
+  transition: background-color 0.3s ease; /* Efecto al pasar el mouse */
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Estilos para los botones en el header */
+header button {
+  padding: 10px 5px; /* Espaciado interno */
+  font-size: 16px; /* Tamaño de la fuente */
+  color: white; /* Texto blanco */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: background-color 0.3s ease; /* Transición suave al cambiar el color */
+  margin-right: 10px; /* Espaciado entre botones */
+}
+
+
+
+
+  
+  header {
+    position: fixed; /* El header se mantiene fijo en la parte superior */
+    top: 0; /* Se asegura de que esté alineado con la parte superior */
+    left: 0;
+    width: 100%; /* Ocupa todo el ancho de la página */
+    z-index: 1000; /* Asegura que quede por encima del resto de los elementos */
+    background-color: #f9f9f9; /* Fondo del header */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+    padding: 10px 20px; /* Ajusta el espaciado interno */
+    color: rgb(255, 255, 255); /* Texto blanco */
+}
+
+
+/* Estilos para el contenedor de la lista de productos */
+.product-list {
+  padding: 20px;
+  background-color: #000000;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+/* Estilos para el título h2 dentro de la lista de productos */
+.product-list h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Estilos para cada item de la lista de productos */
+.product-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #000000;
+  background-color: #c22727;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+  ul {
+    list-style: none;
+    padding: 10;
+    margin: 20; /* Elimina márgenes adicionales */
+  }
+  
+  li {
+    display: block;
+    justify-content: space-between;
+    align-items: left; /* Alinea verticalmente los elementos */
+    margin-bottom: 15px;
+    padding: 10px; /* Espaciado interno */
+    background-color: #ffffff; /* Fondo blanco */
+    border: 1px solid #000000; /* Borde suave */
+    border-radius: 5px; /* Bordes redondeados */
+  }
+  
+
+  
+  button:hover {
+    background-color: #1d1d1d; /* Azul más oscuro al pasar el cursor */
+  }
+  
+  button:active {
+    background-color: #272525; /* Azul intenso al hacer clic */
+  }
+  
+  .form-container {
+    margin-top: -10px;
+    padding: 0px; /* Espaciado interno para el formulario */
+    background-color: #55555571; /* Fondo gris claro */
+    border: 1px solid #050505; /* Borde suave */
+    border-radius: 1px; /* Bordes redondeados */
+    
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #a5a5a5; /* Borde gris claro */
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  h1 {
+    font-size: 50px; /* Tamaño de la fuente */
+    font-weight: bold; /* Grosor de la fuente */
+    color: #000000; /* Color del texto */
+    text-align: center; /* Alineación del texto */
+    margin-bottom: 50px; /* Espaciado inferior */
+    text-transform: uppercase; /* Convertir texto a mayúsculas */
+    letter-spacing: 1.0px; /* Espaciado entre letras */
+    
+  }
+  
+
+  /* Estilos generales para h2 */
+  h2 {
+    font-family: 'Arial', sans-serif; /* Mismo tipo de fuente */
+    font-weight: bold; /* Texto normal (sin negrita) */
+    font-size: 50px; /* Tamaño de fuente mediano */
+    color: #070707; /* Un color gris oscuro para contraste suave */
+    margin-bottom: 15px; /* Espacio debajo del título */
+    text-align: center; /* Alineación del texto a la izquierda */
+    letter-spacing: 0.5px; /* Espaciado entre letras */
+    padding-left: 10px; /* Alineación con un pequeño margen a la izquierda */
+  }
+  
+
+  /* Estilo para la superposición */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Asegura que esté encima de otros elementos */
+}
+
+/* Estilo para el cuadro emergente */
+.popup-box {
+  background: #aaaaaa;
+  border-radius: 2px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.50);
+  width: 400px;
+  text-align: center;
+}
+
+
+
+.popup-buttons {
+  display: flex; /* Activa Flexbox */
+  justify-content: space-between; /* Separa los botones horizontalmente */
+  gap: 15px; /* Espaciado entre botones */
+  margin-top: 20px; /* Espaciado superior */
+}
+
+
+/* Estilos para los botones */
+.popup-buttons button {
+  flex: 1; /* Cada botón ocupa el mismo ancho dentro del contenedor */
+  padding: 7px 20px; /* Espaciado interno */
+  border: none; /* Sin bordes */
+  border-radius: 5px; /* Bordes redondeados */
+  font-size: 16px; /* Tamaño de la fuente */
+  cursor: pointer; /* Cursor de mano */
+  transition: background-color 0.3s ease; /* Efecto al pasar el mouse */
+}
+
+/* Estilo para el botón de "Guardar Proveedor" */
+.popup-buttons button:first-child {
+  background-color: #28a745; /* Verde */
+  color: white; /* Texto blanco */
+}
+
+.popup-buttons button:first-child:hover {
+  background-color: #218838; /* Verde oscuro */
+}
+
+/* Estilo para el botón de "Cancelar" */
+.popup-buttons button:last-child {
+  background-color: #dc3545; /* Rojo */
+  color: white; /* Texto blanco */
+}
+
+.popup-buttons button:last-child:hover {
+  background-color: #c82333; /* Rojo oscuro */
+}
+
+/* Estilos para el contenedor del popup */
+.popup-box {
+  position: fixed; /* Fija el popup en la pantalla */
+  top: 50%; /* Centra verticalmente */
+  left: 50%; /* Centra horizontalmente */
+  transform: translate(-50%, -50%); /* Ajusta el centro */
+  width: 30%; /* Ancho adaptable */
+  max-width: 400px; /* Ancho máximo */
+  background-color: #bdbdbd; /* Fondo blanco */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: -5px; /* Espaciado interno */
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+/* Estilo para el título del popup */
+.popup-box h2 {
+  margin: 0 0 20px; /* Espaciado inferior */
+  font-size: 25px; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  color: #333; /* Color del texto */
+  text-align: center; /* Centrado */
+
+}
+
+/* Estilo para los inputs */
+.popup-box input[type="text"] {
+  width: 100%; /* Ocupa todo el ancho */
+  padding: 10px; /* Espaciado interno */
+  margin-bottom: 15px; /* Espaciado inferior */
+  border: 1px solid #ccc; /* Borde */
+  border-radius: 5px; /* Bordes redondeados */
+  font-size: 16px; /* Tamaño de fuente */
+  box-sizing: border-box; /* Incluye padding y borde en el ancho */
+}
+
+.message-popup {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4CAF50; /* Color verde para éxito */
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  transition: opacity 0.5s ease-out;
+}
+
+.message-popup.error {
+  background-color: #f44336; /* Color rojo para error */
+}
+
+.message-popup.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+
+
+
+/* Estilo para el overlay (fondo oscuro) */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Estilo para el popup */
+.popup {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+
+.popup ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.popup li {
+  margin-bottom: 10px;
+}
+
+.popup button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popup button:hover {
+  background-color: #0056b3;
+}
+
+.button-container-outside {
+  margin: 10px;
+}
+
+.categorias-container {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.categorias-container div {
+  margin: 5px 0;
+}
+
+/* Estilos para el botón de "Ver Categorías" */
+.ver-categorias-btn {
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: #000000; /* Azul */
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.ver-categorias-btn:hover {
+  background-color: #363636; /* Azul más oscuro */
+}
+
+/* Estilos para el botón de "Agregar Producto" */
+.agregar-producto-btn {
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: #068b39; /* Verde */
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.agregar-producto-btn:hover {
+  background-color: #27ae60; /* Verde más oscuro */
+}
+
+/* Estilos para el botón de "Agregar Categoría" */
+.agregar-categoria-btn {
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: #f3a634; /* Amarillo */
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.agregar-categoria-btn:hover {
+  background-color: #e67e22; /* Amarillo más oscuro */
+}
+
+p {
+  margin-top: 10px;
+  color: green; /* o rojo, dependiendo de éxito/error */
+}
+
+/* Estilos para el contenedor de los botones */
+.item-buttons {
+  display:  flex; /* Para alinear los botones en fila */
+  gap: 20px; /* Espacio entre los botones */
+  margin-top: 5px;
+}
+
+/* Estilos para el botón de Editar */
+.button-editar {
+  padding: 10px;
+  background-color: #696868; /* Verde */
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease; /* Suaviza el cambio de color */
+}
+
+.button-editar:hover {
+  background-color: #45a049; /* Verde más oscuro al pasar el ratón */
+}
+
+/* Estilos para el botón de Eliminar */
+.button-eliminar {
+  padding: 10px;
+  background-color: #f44336; /* Rojo */
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease; /* Suaviza el cambio de color */
+}
+
+.button-eliminar:hover {
+  background-color: #e53935; /* Rojo más oscuro al pasar el ratón */
+}
+
+/* Contenedor de categorías */
+.categorias-container {
+  margin: 20px auto; /* Espaciado superior e inferior y centrado */
+  padding: 20px; /* Espaciado interno */
+  background-color: #ffffff; /* Fondo claro */
+  border-radius: 8px; /* Bordes redondeados */
+  border: 1px solid #000000; /* Borde gris claro */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  max-width: 600px; /* Ancho máximo del contenedor */
+  text-align: center; /* Centrar el contenido */
+}
+
+/* Título de las categorías */
+.categorias-container h3 {
+  font-size: 24px; /* Tamaño de fuente */
+  font-weight: bold; /* Fuente en negrita */
+  color: #000000; /* Color oscuro */
+  margin-bottom: 15px; /* Espaciado inferior */
+  text-transform: uppercase; /* Mayúsculas */
+  letter-spacing: 1px; /* Espaciado entre letras */
+}
+
+/* Contenedor de las categorías individuales */
+.categorias-container div {
+  display: flex; /* Alineación flexible */
+  flex-wrap: wrap; /* Permite que los elementos se ajusten a la línea */
+  justify-content: center; /* Centra las categorías */
+  gap: 10px; /* Espaciado entre categorías */
+}
+
+/* Categorías individuales */
+.categorias-container div div {
+  background-color: #58f4ff33; /* Fondo azul claro */
+  padding: 10px 15px; /* Espaciado interno */
+  border-radius: 5px; /* Bordes redondeados */
+  border: 1px solid #b3d8ff; /* Borde azul */
+  font-size: 15px; /* Tamaño de fuente */
+  font-weight: 500; /* Grosor medio */
+  color: #000000; /* Color de texto */
+  transition: all 0.3s ease; /* Animación para el hover */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+
+/* Efecto al pasar el cursor por encima */
+.categorias-container div div:hover {
+  background-color: #cce6ff; /* Cambia el fondo */
+  color: #003d80; /* Cambia el color del texto */
+  transform: scale(1.05); /* Agranda ligeramente */
+}

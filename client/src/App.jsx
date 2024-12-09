@@ -17,6 +17,9 @@ import Menu from './pages/Toolcrib/Menu';
 import Header from './pages/Toolcrib/Header';
 import Productlist from './pages/Toolcrib/product';
 import NewProduct from './pages/Toolcrib/newproduct';
+import Entradas from './pages/Toolcrib/primrasentradas';
+import ListaEntradas from './pages/Toolcrib/listadeentradas';
+import ListProveedores from './pages/Toolcrib/listprovedores';
 
 
 function App() {
@@ -58,7 +61,7 @@ function AppContent({ isAuthenticated, setIsAuthenticated, setUserEmail, handleL
       {/* Solo muestra la barra de navegación si no estás en la página de login */}
       {!['/login','/toolcriblogin' ,'/product','/customer','/customer/tecnicos',
         'customer/oficinas','/customer/supervisores', '/supplier', '/newproduct',
-        '/purchase', '/order',
+        '/purchase', '/order', '/primerasentradas', '/listadeentradas', 
       ].includes(location.pathname) &&<Navigation />}
  
         
@@ -91,10 +94,12 @@ function AppContent({ isAuthenticated, setIsAuthenticated, setUserEmail, handleL
         <Route path="/customer/tecnicos" element={<Workingpage/>} />
         <Route path="/customer/oficinas" element={<Workingpage/>} />
         <Route path="/customer/supervisores" element={<Workingpage/>} />
-        <Route path="/supplier" element={<Workingpage/>} />
+        <Route path="/supplier" element={<ListProveedores/>} />
         <Route path="/newproduct" element={<NewProduct/>} />
         <Route path="/purchase" element={<Workingpage/>} />
         <Route path="/order" element={<Workingpage/>} />
+        <Route path="/primerasentradas" element={<Entradas/>} />
+        <Route path="/listadeentradas" element={<ListaEntradas/>} />
         <Route
           path="/toolcrib"
           element={

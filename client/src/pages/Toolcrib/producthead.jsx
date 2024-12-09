@@ -44,121 +44,149 @@ const Header = ({ setIsAuthenticated, userEmail }) => {
           </h1>
         </div>
         <nav className="nav d-flex flex-column align-items-start">
-          {/* Botón de Inicio */}
-          <div className="dropdown">
-            <button
-              className="nav-link btn btn-primary menu-button"
-              onClick={() => navigate('/menu')}
-            >
-              Inicio
-            </button>
-          </div>
+    {/* Botón de Inicio */}
+    <div className="dropdown">
+  <button
+    className="nav-link btn btn-primary menu-button"
+    onClick={() => navigate('/menu')}
+  >
+    Inicio
+  </button>
+</div>
 
           {/* Dropdown para Clientes */}
-          <div className={`dropdown ${activeDropdown === 'clientes' ? 'show' : ''}`}>
-            <button
-              className="nav-link btn btn-primary menu-button"
-              onClick={() => toggleDropdown('clientes')}
-            >
-              Clientes
-            </button>
+          <div
+            className={`dropdown ${activeDropdown === 'clientes' ? 'show' : ''}`}
+            onClick={() => toggleDropdown('clientes')}
+          >
+
+
+
+
+            
+            <button className="nav-link btn btn-primary menu-button">Empleados</button>
             {activeDropdown === 'clientes' && (
               <div className="dropdown-content">
                 <a className="dropdown-item" onClick={() => navigate('/customer')}>
                   CELDAS
                 </a>
-                <a className="dropdown-item" onClick={() => navigate('/customer/sub2')}>
+                <a className="dropdown-item" onClick={() => navigate('/customer/tecnicos')}>
                   TECNICOS
                 </a>
-                <a className="dropdown-item" onClick={() => navigate('/customer/sub2')}>
+                <a className="dropdown-item" onClick={() => navigate('/customer/oficinas')}>
                   OFICINAS
                 </a>
-                <a className="dropdown-item" onClick={() => navigate('/customer/sub2')}>
+                <a className="dropdown-item" onClick={() => navigate('/customer/supervisores')}>
                   SUPERVISORES
                 </a>
               </div>
             )}
           </div>
+      
+          <div
+            className={`dropdown ${activeDropdown === 'Entradas' ? 'show' : ''}`}
+            onClick={() => toggleDropdown('Entradas')}
+          >
+
+            <button className="nav-link btn btn-primary menu-button">Primeras Entradas</button>
+            {activeDropdown === 'Entradas' && (
+              <div className="dropdown-content">
+                <a className="dropdown-item" onClick={() => navigate('/primerasentradas')}>
+                 Nueva Entrada
+                </a>
+                <a className="dropdown-item" onClick={() => navigate('/listadeentradas')}>
+                Lista de Entradas
+                </a>
+              </div>
+            )}
+
+          </div>
+
+
+          <div
+            className={`dropdown ${activeDropdown === 'Salidas' ? 'show' : ''}`}
+            onClick={() => toggleDropdown('Salidas')}
+          >
+ 
+            <button className="nav-link btn btn-primary menu-button">Salidas</button>
+            {activeDropdown === 'Salidas' && (
+              <div className="dropdown-content">
+                <a className="dropdown-item" onClick={() => navigate('/customer')}>
+                  Salidas producto
+                </a>
+              
+              </div>
+            )}
+
+          </div>
+
+          <div
+            className={`dropdown ${activeDropdown === 'Inventarios' ? 'show' : ''}`}
+            onClick={() => toggleDropdown('Inventarios')}
+          >
+
+
+
+
+            
+            <button className="nav-link btn btn-primary menu-button">Inventarios</button>
+            {activeDropdown === 'Inventarios' && (
+              <div className="dropdown-content">
+                <a className="dropdown-item" onClick={() => navigate('/customer')}>
+                  Stock
+                </a>
+              
+              </div>
+            )}
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
 
           {/* Dropdown para Categorías */}
-          <div className={`dropdown ${activeDropdown === 'categorias' ? 'show' : ''}`}>
-            <button
-              className="nav-link btn btn-primary menu-button"
-              onClick={() => toggleDropdown('categorias')}
-            >
-              Categorías
-            </button>
-            {activeDropdown === 'categorias' && (
-              <div className="dropdown-content">
-                <a className="dropdown-item" onClick={() => navigate('/category/electronics')}>
-                  ELECTRONICO
-                </a>
-                <a className="dropdown-item" onClick={() => navigate('/category/furniture')}>
-                  MUEBLES
-                </a>
-                <a className="dropdown-item" onClick={() => navigate('/category/clothing')}>
-                  ROPA
-                </a>
-                <a className="dropdown-item" onClick={() => navigate('/category/clothing')}>
-                  PEGAMENTOS
-                </a>
-                <a className="dropdown-item" onClick={() => navigate('/category/clothing')}>
-                  ABAROTES
-                </a>
-              </div>
-            )}
-          </div>
+          
 
           {/* Dropdown para Marcas */}
-          <div className={`dropdown ${activeDropdown === 'marcas' ? 'show' : ''}`}>
-            <button
-              className="nav-link btn btn-primary menu-button"
-              onClick={() => toggleDropdown('marcas')}
-            >
-              Marcas
-            </button>
-            {activeDropdown === 'marcas' && (
-              <div className="dropdown-content">
-                <a className="dropdown-item" onClick={() => navigate('/brand/local')}>
-                  Local
-                </a>
-                <a className="dropdown-item" onClick={() => navigate('/brand/international')}>
-                  Internacional
-                </a>
-              </div>
-            )}
-          </div>
+        
 
           {/* Dropdown para Proveedores */}
-          <div className={`dropdown ${activeDropdown === 'proveedores' ? 'show' : ''}`}>
-            <button
-              className="nav-link btn btn-primary menu-button"
-              onClick={() => toggleDropdown('proveedores')}
-            >
-              Proveedores
-            </button>
+          <div
+            className={`dropdown ${activeDropdown === 'proveedores' ? 'show' : ''}`}
+            onClick={() => toggleDropdown('proveedores')}
+          >
+            <button className="nav-link btn btn-primary menu-button">Proveedores</button>
             {activeDropdown === 'proveedores' && (
               <div className="dropdown-content">
                 <a className="dropdown-item" onClick={() => navigate('/supplier')}>
                   Lista de Proveedores
                 </a>
-                <a className="dropdown-item" onClick={() => navigate('/supplier')}>
-                  NUEVO PROVEDOR
-                </a>
+                
               </div>
             )}
           </div>
 
           {/* Dropdown para Productos */}
-          <div className={`dropdown ${activeDropdown === 'productos' ? 'show' : ''}`}>
-            <button
-              className="nav-link btn btn-primary menu-button"
-              onClick={() => toggleDropdown('productos')}
-            >
-              Productos
-            </button>
+          <div
+            className={`dropdown ${activeDropdown === 'productos' ? 'show' : ''}`}
+            onClick={() => toggleDropdown('productos')}
+          >
+            <button className="nav-link btn btn-primary menu-button">Productos</button>
             {activeDropdown === 'productos' && (
               <div className="dropdown-content">
+                <a className="dropdown-item" onClick={() => navigate('/product')}>
+                  Lista de Productos
+                </a>
                 <a className="dropdown-item" onClick={() => navigate('/newproduct')}>
                   NUEVO PRODUCTO
                 </a>
@@ -167,13 +195,11 @@ const Header = ({ setIsAuthenticated, userEmail }) => {
           </div>
 
           {/* Dropdown para Compras */}
-          <div className={`dropdown ${activeDropdown === 'compras' ? 'show' : ''}`}>
-            <button
-              className="nav-link btn btn-primary menu-button"
-              onClick={() => toggleDropdown('compras')}
-            >
-              Compras
-            </button>
+          <div
+            className={`dropdown ${activeDropdown === 'compras' ? 'show' : ''}`}
+            onClick={() => toggleDropdown('compras')}
+          >
+            <button className="nav-link btn btn-primary menu-button">Compras</button>
             {activeDropdown === 'compras' && (
               <div className="dropdown-content">
                 <a className="dropdown-item" onClick={() => navigate('/purchase')}>
@@ -187,13 +213,11 @@ const Header = ({ setIsAuthenticated, userEmail }) => {
           </div>
 
           {/* Dropdown para Órdenes */}
-          <div className={`dropdown ${activeDropdown === 'ordenes' ? 'show' : ''}`}>
-            <button
-              className="nav-link btn btn-primary menu-button"
-              onClick={() => toggleDropdown('ordenes')}
-            >
-              Órdenes
-            </button>
+          <div
+            className={`dropdown ${activeDropdown === 'ordenes' ? 'show' : ''}`}
+            onClick={() => toggleDropdown('ordenes')}
+          >
+            <button className="nav-link btn btn-primary menu-button">Órdenes</button>
             {activeDropdown === 'ordenes' && (
               <div className="dropdown-content">
                 <a className="dropdown-item" onClick={() => navigate('/order')}>
@@ -206,10 +230,21 @@ const Header = ({ setIsAuthenticated, userEmail }) => {
             )}
           </div>
 
-          {/* Muestra el botón de Cerrar Sesión sin el dropdown */}
-          <button className="dropdown-item" onClick={handleLogout}>
-            Cerrar Sesión
-          </button>
+          
+
+          {/* Muestra el correo o el nombre del usuario */}
+          <div
+            className={`dropdown ${activeDropdown === 'usuario' ? 'show' : ''}`}
+            onClick={() => toggleDropdown('usuario')}
+          >
+
+
+         {/* Muestra el botón de Cerrar Sesión sin el dropdown */}
+<button className="dropdown-item" onClick={handleLogout}>
+  Cerrar Sesión
+</button>
+
+          </div>
         </nav>
       </header>
     </div>
