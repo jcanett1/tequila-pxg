@@ -23,7 +23,7 @@ from tasks.views import (
     agregar_entrada, agregar_categoria, agregar_proveedor,
     listar_proveedores, modificar_proveedor, eliminar_proveedor,
     lista_primeras_entradas, modificar_listaentradas, 
-    eliminar_listadeentradas  # <- Agregada aquí
+    eliminar_listadeentradas,listaproductos    # <- Agregada aquí
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,10 +36,11 @@ urlpatterns = [
     
     path('api/primerasentradas/<int:id>/eliminar/', eliminar_listadeentradas, name='eliminar_litadenetradas'),
     path('api/primerasentradas/<int:id>/modificar/', modificar_listaentradas, name='primerasentradas-modificar'),
+    path('api/productos/lista/', listaproductos, name='listaproductos'),
     path('api/productos/', api_lista_productos, name='lista_productos'),
     path('api/categoria/', views.listar_categorias, name='listar_categorias'),
     path('api/productos/agregar/', agregar_producto, name='agregar_producto'),
-    path('api/productos/<str:nombre>/eliminar/', eliminar_producto, name='eliminar_producto'),
+      path('api/productos/<int:id>/eliminar/', eliminar_producto, name='eliminar_producto'),
     path('api/productos/<int:id>/editar/', api_modificar_producto, name='modificar_producto'),
     path('api/productos/<int:id>/minmax/', manejar_min_max, name='manejar_min_max'),
     path('api/proveedor/agregar/', agregar_proveedor, name='agregar_proveedor'),

@@ -80,9 +80,9 @@ const PrimeraEntrada = () => {
       const entradasResponse = await axios.get('http://localhost:8000/api/primerasentradas/');
       setEntradas(entradasResponse.data);
   
-    } catch (error) {
+     }catch (error) {
       console.error("Error al registrar la entrada:", error.response?.data || error.message);
-      alert('Ocurrió un error al registrar la entrada. Por favor, inténtalo nuevamente.');
+      
     }
   };
 

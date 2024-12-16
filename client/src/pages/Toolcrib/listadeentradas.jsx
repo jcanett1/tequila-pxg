@@ -19,6 +19,7 @@ const ListaEntradas = () => {
     descripcion: '',
     proveedor: '',
     categoria: '',
+    precio:'',
     cantidad: '',
     fecha_ingreso: '',
     cantidad_minima: '',
@@ -126,11 +127,12 @@ const exportToPDF = () => {
   const doc = new jsPDF();
 
   doc.autoTable({
-    head: [['ID', 'DESCRIPCION', 'PROVEEDOR', 'CANTIDAD', 'CATEGORIA', 'FECHA INGRESO', 'CANTIDAD MINIMA', 'CANTIDAD MAXIMA', 'PRODUCTO', 'COMENTARIOS']],
+    head: [['ID', 'DESCRIPCION', 'PROVEEDOR', 'CANTIDAD', 'CATEGORIA', 'FECHA INGRESO', 'CANTIDAD MINIMA', 'CANTIDAD MAXIMA', 'PRODUCTO', 'PRECIO', 'COMENTARIOS']],
     body: entradas.map((entrada) => [
       entrada.id,
       entrada.descripcion,
       entrada.proveedor,
+      entrada.precio,
       entrada.cantidad,
       entrada.categoria,
       entrada.fecha_ingreso,
@@ -176,6 +178,7 @@ const exportToPDF = () => {
             <th>ID</th>
             <th>Descripción</th>
             <th>Proveedor</th>
+            <th>Precio</th>
             <th>Cantidad</th>
             <th>Categoría</th>
             <th>Fecha de Ingreso</th>
@@ -192,6 +195,7 @@ const exportToPDF = () => {
               <td>{entrada.id}</td>
               <td>{entrada.descripcion}</td>
               <td>{entrada.proveedor}</td>
+              <td>{entrada.precio}</td>
               <td>{entrada.cantidad}</td>
               <td>{entrada.categoria}</td>
               <td>{entrada.fecha_ingreso}</td>
@@ -231,6 +235,7 @@ const exportToPDF = () => {
               ))}
             </select>
             <input name="cantidad" value={formData.cantidad} onChange={handleChange} placeholder="Cantidad" />
+            <input name="precio" value={formData.precio} onChange={handleChange} placeholder="Precio" />
             <input name="fecha_ingreso" value={formData.fecha_ingreso} onChange={handleChange} placeholder="Fecha de Ingreso" />
             <input name="cantidad_minima" value={formData.cantidad_minima} onChange={handleChange} placeholder="Cantidad Mínima" />
             <input name="cantidad_maxima" value={formData.cantidad_maxima} onChange={handleChange} placeholder="Cantidad Máxima" />

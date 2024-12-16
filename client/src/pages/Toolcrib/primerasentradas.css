@@ -1,6 +1,7 @@
 
   /* Estilos para el formulario */
 .form5 {
+  z-index: 5; /* Menor que el z-index del encabezado */
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -105,3 +106,5 @@
   .btn-submit3:hover {
     background-color: #013353; /* Color de fondo cuando el mouse pasa por encima */
   }
+
+  

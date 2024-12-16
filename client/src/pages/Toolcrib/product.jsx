@@ -1,402 +1,298 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 import ProductHead from './producthead';
 import axios from 'axios';
 import './product.css';
+import * as XLSX from 'xlsx';  // Librería para exportar a Excel
+import jsPDF from 'jspdf';  // Librería para exportar a PDF
 
 const ListaProductos = () => {
   const [productos, setProductos] = useState([]); // Lista de productos
+  const [productosFiltrados, setProductosFiltrados] = useState([]); // Lista filtrada de productos
+  const [nuevaCategoria, setNuevaCategoria] = useState("");  // Estado para el campo de entrada de categoría
   const [categorias, setCategorias] = useState([]); // Lista de categorías
   const [showCategories, setShowCategories] = useState(false); // Estado para controlar la visibilidad de categorías
   const [showPopupProduct, setShowPopupProduct] = useState(false); // Estado para el popup de producto
   const [showPopupCategory, setShowPopupCategory] = useState(false); // Estado para el popup de categoría
-  
   const [formData, setFormData] = useState({
     id: null,
     nombre_producto: "",
     descripcion: "",
     nombre_categoria: "",
   });
+  
   const [isEditing, setIsEditing] = useState(false); // Indica si se está editando
   const [message, setMessage] = useState(''); // Mensajes de éxito o error
+  const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
 
+  // Cargar categorías al inicio
   useEffect(() => {
-    // Asumiendo que tienes una API que obtiene las categorías
-    axios.get('http://localhost:8000/api/categoria/')
-      .then(response => {
-        setCategorias(response.data); // Almacenas las categorías en el estado
-      })
-      .catch(error => {
-        console.error("Error al cargar las categorías", error);
-      });
-  }, []);
-
-  
-  // Cargar productos desde el backend cuando se monta el componente
-  useEffect(() => {
-    const fetchProductos = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/api/productos/');
-        setProductos(response.data);
-      } catch (error) {
-        console.error('Error al cargar los productos:', error);
-      }
-    };
-
+    fetchCategorias();
     fetchProductos();
   }, []);
 
-  
+  // Función para obtener categorías
+  const fetchCategorias = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/categoria/');
+      setCategorias(response.data);
+      setMessage('Categorías cargadas con éxito');
+      setTimeout(() => setMessage(''), 3000); // Eliminar mensaje después de 3 segundos
+    } catch (error) {
+      setMessage('Error al cargar categorías');
+      console.error(error);
+      setTimeout(() => setMessage(''), 3000); // Eliminar mensaje después de 3 segundos
+    }
+  };
 
-  
-  // Manejo de los cambios en los campos del formulario
+  // Cargar productos
+  const fetchProductos = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/productos/');
+      setProductos(response.data);
+      setProductosFiltrados(response.data);  // Inicializamos la lista filtrada con todos los productos
+    } catch (error) {
+      console.error('Error al cargar los productos:', error);
+    }
+  };
+
+  // Función para manejar cambios en el formulario
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Funciones para abrir y cerrar popups
+  // Función de búsqueda
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    filterProducts(e.target.value);
+  };
+
+  const filterProducts = (searchTerm) => {
+    if (!searchTerm) {
+      setProductosFiltrados(productos);  // Si no hay término de búsqueda, mostramos todos los productos
+    } else {
+      const filtered = productos.filter((prod) => 
+        prod.id.toString().includes(searchTerm) || prod.nombre_producto.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setProductosFiltrados(filtered);
+    }
+  };
+
+  // Función para exportar a Excel
+  const exportToExcel = () => {
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(productosFiltrados);
+    XLSX.utils.book_append_sheet(wb, ws, 'Productos');
+    XLSX.writeFile(wb, 'productos.xlsx');
+  };
+
+  // Función para exportar a PDF
+  const exportToPDF = () => {
+    const doc = new jsPDF();
+    doc.text('Lista de Productos', 10, 10);
+    productosFiltrados.forEach((prod, index) => {
+      doc.text(`ID: ${prod.id}, Nombre: ${prod.nombre_producto}, Descripción: ${prod.descripcion}, Categoría: ${prod.nombre_categoria}`, 10, 20 + (index * 10));
+    });
+    doc.save('productos.pdf');
+  };
+
+  // Función para agregar un nuevo producto
+  const handleAddProduct = async () => {
+    try {
+      await axios.post('http://localhost:8000/api/productos/agregar/', formData);
+      setMessage('Producto agregado con éxito');
+      setTimeout(() => setMessage(''), 3000); // Eliminar mensaje después de 3 segundos
+      fetchProductos(); // Refrescar la lista de productos
+      setShowPopupProduct(false); // Cerrar el popup
+    } catch (error) {
+      setMessage('Error al agregar el producto');
+      console.error(error);
+      setTimeout(() => setMessage(''), 3000); // Eliminar mensaje después de 3 segundos
+    }
+  };
+
+  // Función para editar un producto
+  const handleEditProduct = async () => {
+    try {
+      await axios.put(`http://localhost:8000/api/productos/${formData.id}/editar/`, formData);
+      setMessage('Producto actualizado con éxito');
+      setTimeout(() => setMessage(''), 3000); // Eliminar mensaje después de 3 segundos
+      fetchProductos(); // Refrescar la lista de productos
+      setShowPopupProduct(false); // Cerrar el popup
+      setIsEditing(false); // Volver a estado de "Agregar"
+    } catch (error) {
+      setMessage('Error al actualizar el producto');
+      console.error(error);
+      setTimeout(() => setMessage(''), 3000); // Eliminar mensaje después de 3 segundos
+    }
+  };
+
+  // Función para eliminar un producto
+  const handleDeleteProduct = async (id) => {
+    if (window.confirm("¿Estás seguro de que deseas eliminar este producto?")) {
+      try {
+        await axios.delete(`http://localhost:8000/api/productos/${id}/eliminar/`);
+        setMessage('Producto eliminado con éxito');
+        setTimeout(() => setMessage(''), 3000); // Eliminar mensaje después de 3 segundos
+        fetchProductos(); // Refrescar la lista de productos
+      } catch (error) {
+        setMessage('Error al eliminar el producto');
+        console.error(error);
+        setTimeout(() => setMessage(''), 3000); // Eliminar mensaje después de 3 segundos
+      }
+    }
+  };
+
+  // Función para agregar una nueva categoría
+  const handleAddCategory = async () => {
+    if (!nuevaCategoria.trim()) {
+      setMessage('El nombre de la categoría no puede estar vacío');
+      setTimeout(() => setMessage(''), 3000); // Eliminar mensaje después de 3 segundos
+      return;
+    }
+    try {
+      await axios.post('http://localhost:8000/api/productos/categoria/', { nombre_categoria: nuevaCategoria });
+      setMessage('Categoría agregada con éxito');
+      setTimeout(() => setMessage(''), 3000); // Eliminar mensaje después de 3 segundos
+      fetchCategorias(); // Refrescar la lista de categorías
+      setNuevaCategoria(''); // Limpiar el campo
+      setShowPopupCategory(false); // Cerrar el popup
+    } catch (error) {
+      setMessage('Error al agregar la categoría');
+      console.error(error);
+      setTimeout(() => setMessage(''), 3000); // Eliminar mensaje después de 3 segundos
+    }
+  };
+
+  // Funciones para abrir y cerrar los popups
   const handleOpenPopupProduct = () => setShowPopupProduct(true);
   const handleClosePopupProduct = () => setShowPopupProduct(false);
-
   const handleOpenPopupCategory = () => setShowPopupCategory(true);
   const handleClosePopupCategory = () => setShowPopupCategory(false);
 
-  const handleOpenPopupProvider = () => setShowPopupProvider(true);
-  const handleClosePopupProvider = () => setShowPopupProvider(false);
-
-  // Función para agregar un producto
-  const handleAddProduct = async () => {
-    try {
-      const newproduct = {
-        nombre_producto: formData.nombre_producto,
-        descripcion: formData.descripcion,
-        nombre_categoria: formData.nombre_categoria,
-      };
-      const response = await axios.post('http://localhost:8000/api/productos/agregar/', newproduct);
-      setProductos((prev) => [...prev, response.data]);
-      handleClosePopupProduct();
-      setMessage('Producto agregado con éxito'); // Muestra el mensaje de éxito
-      handleClosePopupProduct(); // Cierra el popup de agregar producto
-      // Elimina el mensaje después de 3 segundos
-      setTimeout(() => {
-        setMessage('');
-      }, 3000); // 3000 ms = 3 segundos
-    } catch (error) {
-      console.error('Error al agregar el producto:', error.response?.data || error);
-      setMessage('Error al agregar el producto'); // Muestra un mensaje de error
-      setTimeout(() => {
-        setMessage('');
-      }, 3000); // Elimina el mensaje después de 3 segundos
-    }
-  };
-
-  // Función para eliminar un producto por su nombre
-  const handleDeleteProduct = async (id) => {
-    // Mostrar mensaje de confirmación
-    const isConfirmed = window.confirm('¿Estás seguro de que deseas eliminar este producto?');
-  
-    if (isConfirmed) {
-      try {
-        const response = await axios.delete(`http://localhost:8000/api/productos/${id}/eliminar/`);
-        setProductos(productos.filter(producto => producto.id !== id)); // Elimina el producto de la lista
-        setMessage('Producto eliminado con éxito');
-        setTimeout(() => setMessage(''), 3000); // Elimina el mensaje después de 3 segundos
-      } catch (error) {
-        console.error('Error al eliminar el producto:', error.response?.data || error);
-        setMessage('Error al eliminar el producto');
-        setTimeout(() => setMessage(''), 3000); // Elimina el mensaje después de 3 segundos
-      }
-    } else {
-      setMessage('Eliminación cancelada');
-      setTimeout(() => setMessage(''), 3000); // Elimina el mensaje después de 3 segundos
-    }
-  };
-
-
-  const handleAddCategory = async (nuevaCategoria) => {
-    try {
-        const response = await axios.post('http://localhost:8000/api/productos/categoria/', {
-            nombre_categoria: nuevaCategoria,
-        });
-        setCategorias((prev) => [...prev, response.data]);
-        handleClosePopupCategory();
-        setMessage('Categoria agregado con éxito'); // Muestra el mensaje de éxito
-    handleClosePopupProduct(); // Cierra el popup de agregar producto
-    // Elimina el mensaje después de 3 segundos
-    setTimeout(() => {
-      setMessage('');
-    }, 3000); // 3000 ms = 3 segundos
-  } catch (error) {
-    console.error('Error al cargarel categoria:', error.response?.data || error);
-    setMessage('Error al cargar el categoria'); // Muestra un mensaje de error
-    setTimeout(() => {
-      setMessage('');
-    }, 3000); // Elimina el mensaje después de 3 segundos
-  }
-};
-
-
-  // Función para seleccionar un producto para editar
-  const handleEditProduct = (producto) => {
-    setIsEditing(true);
-    setFormData({
-      id: producto.id,
-      nombre_producto: producto.nombre_producto,
-      descripcion: producto.descripcion,
-      nombre_categoria: producto.nombre_categoria,
-    });
-  };
-
-  // Función para guardar cambios al editar un producto
-  const handleUpdateProduct = async () => {
-    try {
-      const { id, ...updatedProduct } = formData;
-      const response = await axios.put(`http://localhost:8000/api/productos/${id}/editar/`, updatedProduct);
-      setProductos(
-        productos.map((prod) => (prod.id === id ? response.data : prod))
-      );
-      setIsEditing(false);
-      setMessage('Producto actualizado con éxito'); // Muestra el mensaje de éxito
-      handleClosePopupProduct(); // Cierra el popup de agregar producto
-      // Elimina el mensaje después de 3 segundos
-      setTimeout(() => {
-        setMessage('');
-      }, 3000); // 3000 ms = 3 segundos
-    } catch (error) {
-      console.error('Error al actualizar el producto:', error.response?.data || error);
-      setMessage('Error al actulizar el producto'); // Muestra un mensaje de error
-      setTimeout(() => {
-        setMessage('');
-      }, 3000); // Elimina el mensaje después de 3 segundos
-    }
-  };
-
-
-
-
- // Función para obtener categorías
- const fetchCategorias = async () => {
-  try {
-    const response = await axios.get('http://localhost:8000/api/categoria/');
-    setCategorias(response.data);
-    setMessage('Categorías cargadas con éxito');
-    // Ocultar el mensaje después de 5 segundos
-    setTimeout(() => setMessage(''), 3000); // Después de 3 segundos, limpiar el mensaje
-  } catch (error) {
-    setMessage('Error al cargar categorías');
-    console.error(error);
-    // Ocultar el mensaje después de 5 segundos
-    setTimeout(() => setMessage(''), 3000); // Después de 3 segundos, limpiar el mensaje
-  }
-};
-
-// Manejo de la apertura y cierre del contenedor de categorías
-const handleToggleCategories = () => {
-  setShowCategories(!showCategories); // Alterna la visibilidad
-  if (!showCategories) {
-    fetchCategorias(); // Carga las categorías si el contenedor se abre
-  }
-};
-
-
-
   return (
-    <div className="container">
+    <>
       <ProductHead />
-      <h1>Gestión de Productos</h1>
+      <h1 className="titulo-gestion">Gestión de Productos</h1>
 
-      {/* Mensaje de éxito o error */}
       {message && <div className="message">{message}</div>}
 
-      {/* Lista de Productos */}
-      <div className="product-list">
-        <h2>Lista de Productos</h2>
-        <ul>
-          {productos.length > 0 ? (
-            productos.map((prod) => (
-              <li key={prod.id} className="product-item">
-                <strong>{prod.nombre_producto}</strong> - {prod.descripcion} ({prod.nombre_categoria})
-                <div className="item-buttons">
-                  <button className="button-editar" onClick={() => handleEditProduct(prod)}>Editar</button>
-                  <button className="button-eliminar" onClick={() => handleDeleteProduct(prod.id)}>Eliminar</button>
-                </div>
-              </li>
-            ))
-          ) : (
-            <p>No hay Productos disponibles.</p>
-          )}
-        </ul>
-      </div>
-
-      {/* Botones para abrir los popups */}
       <div className="button-container">
         <button className="agregar-producto-btn" onClick={handleOpenPopupProduct}>Agregar Producto</button>
-        <button className="agregar-categoria-btn" onClick={handleOpenPopupCategory}>Agregar Categoría</button>
-       
-      </div>
-
-      <div>
-      {/* Botón para abrir y cerrar el contenedor de categorías */}
-      <div className="button-container-outside">
-          <button className="ver-categorias-btn" onClick={handleToggleCategories}>
-          {showCategories ? 'Cerrar Categorías' : 'Ver Categorías'}
+        <button className="ver-categorias-btn" onClick={() => setShowCategories(!showCategories)}>
+          {showCategories ? 'Ocultar Categorías' : 'Ver Categorías'}
         </button>
+        <button className="agregar-categoria-btn" onClick={handleOpenPopupCategory}>Agregar Categoría</button>
+        <button className="exportar-excel-btn" onClick={exportToExcel}>Exportar a Excel</button>
+        <button className="exportar-pdf-btn" onClick={exportToPDF}>Exportar a PDF</button>
       </div>
 
-      {/* Contenedor de categorías visible cuando 'showCategories' es true */}
-      {showCategories && (
-        <div className="categorias-container">
-          
-          <h3>Categorías</h3>
-          <div>
-            {categorias.length === 0 ? (
-              <p>No hay categorías disponibles.</p>
-            ) : (
-              categorias.map((categoria) => (
-                <div key={categoria.id}>{categoria.nombre_categoria}</div>
-              ))
-            )}
-          </div>
-        </div>
-      )}
+      <input
+        type="text"
+        placeholder="Buscar producto por ID o nombre"
+        value={searchTerm}
+        onChange={handleSearchChange}
+        className="search-input"
+      />
+ <p className="total-productos">Total de Productos: {productosFiltrados.length}</p>
+      <h2 className="subtitulo-lista2">Tabla de Productos</h2>
+      <div className="product-table">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Categoría</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {productosFiltrados.map((prod) => (
+              <tr key={prod.id}>
+                <td>{prod.id}</td>
+                <td>{prod.nombre_producto}</td>
+                <td>{prod.descripcion}</td>
+                <td>{prod.nombre_categoria}</td>
+                <td>
+                <button className="button-editar" onClick={() => { setFormData(prod); setIsEditing(true); handleOpenPopupProduct(); }}>Editar</button>
+                <button className="button-eliminar" onClick={() => handleDeleteProduct(prod.id)}>Eliminar</button>
+                  
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-      {/* Mensaje de éxito o error */}
-      {message && <p>{message}</p>}
-    </div>
-
-     
-
-      {/* Popup para agregar producto */}
+      {/* Popup de Agregar Producto */}
       {showPopupProduct && (
         <div className="popup-overlay">
-          <div className="popup-box">
-            <h2>Agregar Producto</h2>
-            <form>
-              <input
-                type="text"
-                name="nombre_producto"
-                placeholder="Nombre del producto"
-                value={formData.nombre_producto}
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="text"
-                name="descripcion"
-                placeholder="Descripción"
-                value={formData.descripcion}
-                onChange={handleInputChange}
-              />
-              {/* Formulario */}
-      
-        {/* Select para seleccionar CATEGORIA */}
-        <div>
-  <label>Categoría:</label>
-  <select
-    name="nombre_categoria" // Asegúrate de que el nombre coincida con el campo en formData
-    value={formData.nombre_categoria} // Aquí se está utilizando el estado de formData
-    onChange={handleInputChange}
-    required
-  >
-    <option value="">Seleccione una categoría</option>
-    {categorias.map((categoria) => (
-      <option key={categoria.id} value={categoria.nombre_categoria}>
-        {categoria.nombre_categoria}
-      </option>
-    ))}
-  </select>
-</div>
-              <div className="popup-buttons">
-                <button type="button" onClick={handleAddProduct}>
-                  Guardar 
-                </button>
-                <button type="button" onClick={handleClosePopupProduct}>
-                  Cancelar
-                </button>
-              </div>
-            </form>
+          <div className="popup-content">
+            <h3>{isEditing ? 'Editar Producto' : 'Agregar Producto'}</h3>
+            <input
+              type="text"
+              name="nombre_producto"
+              placeholder="Nombre del Producto"
+              value={formData.nombre_producto}
+              onChange={handleInputChange}
+            />
+            <input
+              type="text"
+              name="descripcion"
+              placeholder="Descripción"
+              value={formData.descripcion}
+              onChange={handleInputChange}
+            />
+            <select
+              name="nombre_categoria"
+              value={formData.nombre_categoria}
+              onChange={handleInputChange}
+            >
+              {categorias.map((cat) => (
+                <option key={cat.id} value={cat.nombre_categoria}>{cat.nombre_categoria}</option>
+              ))}
+            </select>
+            <button className="button-agregar-producto" onClick={isEditing ? handleEditProduct : handleAddProduct}>
+              {isEditing ? 'Actualizar Producto' : 'Agregar Producto'}
+            </button>
+            <button className="button-cancelar" onClick={handleClosePopupProduct}>Cerrar</button>
           </div>
         </div>
       )}
 
-      {/* Popup para agregar categoría */}
+      {/* Popup de Agregar Categoría */}
       {showPopupCategory && (
         <div className="popup-overlay">
-          <div className="popup-box">
-            <h2>Agregar Categoría</h2>
-            <form>
-              <input
-                type="text"
-                name="nueva_categoria"
-                placeholder="Nueva Categoría"
-              />
-              <div className="popup-buttons">
-              <button
-  type="button"
-  onClick={() => {
-    const nuevaCategoria = document.querySelector('input[name="nueva_categoria"]').value;
-    handleAddCategory(nuevaCategoria);
-  }}
->
-  Guardar
-</button>
-                <button type="button" onClick={handleClosePopupCategory}>
-                  Cancelar
-                </button>
-              </div>
-            </form>
+          <div className="popup-content">
+            <h3>Agregar Categoría</h3>
+            <input
+              type="text"
+              placeholder="Nombre de la Categoría"
+              value={nuevaCategoria}
+              onChange={(e) => setNuevaCategoria(e.target.value)}
+            />
+            <button className="button-agregar-categoria" onClick={handleAddCategory}>Agregar Categoría</button>
+            <button className="button-cancelar" onClick={handleClosePopupCategory}>Cerrar</button>
           </div>
         </div>
       )}
 
-     
-  
-
-
-      {/* Formulario para editar producto */}
-      {isEditing && (
-        <div className="popup-overlay">
-          <div className="popup-box">
-            <h2>Editar Producto</h2>
-            <form>
-              <input
-                type="text"
-                name="nombre_producto"
-                placeholder="Nombre del producto"
-                value={formData.nombre_producto}
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="text"
-                name="descripcion"
-                placeholder="Descripción"
-                value={formData.descripcion}
-                onChange={handleInputChange}
-              />
-              <input
-                type="text"
-                name="nombre_categoria"
-                placeholder="Categoría"
-                value={formData.nombre_categoria}
-                onChange={handleInputChange}
-                required
-              />
-              <div className="popup-buttons">
-                <button type="button" onClick={handleUpdateProduct}>
-                  Guardar
-                </button>
-                <button type="button" onClick={() => setIsEditing(false)}>
-                  Cancelar
-                </button>
-              </div>
-            </form>
-          </div>
+      {/* Popup de Ver Categorías */}
+      {showCategories && (
+        <div className="popup-box">
+          <h2 className="subtitulo-lista">Lista de Categorías</h2>
+          <ul>
+            {categorias.map((categoria) => (
+              <li key={categoria.id}>{categoria.nombre_categoria}</li>
+            ))}
+          </ul>
+          <button className="button-cancelar" onClick={() => setShowCategories(false)}>
+            Cancelar
+          </button>
         </div>
       )}
-      {/* Mostrar mensaje de éxito o error */}
-      {message && <div className="message-popup">{message}</div>}
-    </div>
+    </>
   );
 };
 

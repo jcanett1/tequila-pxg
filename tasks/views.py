@@ -25,24 +25,19 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from .models import PrimerasEntradas
 from django.db import connection
-
+from django.db import IntegrityError
 
 # Constante para tamaño máximo de comentarios
 MAX_TAMANO_COMENTARIOS = 500
 
 
-
 def listaproductos(request):
-    """
-    Vista para listar productos con solo los campos id, nombre_producto, descripcion y nombre_categoria.
-    """
     productos = Producto.objects.all().values(
         'id',
         'nombre_producto',
         'descripcion',
-        'nombre_categoria'
+        'nombre_categoria'  # O ajusta según el nombre correcto
     )
-    
     return JsonResponse(list(productos), safe=False)
 
 # Función para reiniciar el contador de IDs en SQL Server
@@ -182,16 +177,16 @@ def editar_producto(request, id):
 
 @api_view(['POST'])
 def agregar_categoria(request):
-    if request.method == 'POST':
-        nombre_categoria = request.data.get('nombre_categoria')
-        if nombre_categoria:
-            categoria = Categoria.objects.create(nombre_categoria=nombre_categoria)
-            return Response({'id': categoria.id, 'nombre_categoria': categoria.nombre_categoria}, status=status.HTTP_201_CREATED)
-        return Response({'error': 'Nombre de la categoría es requerido'}, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        nombre_categoria = request.data.get('nombre_categoria', '').strip()  # Elimina espacios extra
+        if not nombre_categoria:
+            return Response({'error': 'Nombre de la categoría es requerido'}, status=status.HTTP_400_BAD_REQUEST)
 
-
-
-
+        categoria = Categoria.objects.create(nombre_categoria=nombre_categoria)
+        return Response({'id': categoria.id, 'nombre_categoria': categoria.nombre_categoria}, status=status.HTTP_201_CREATED)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
 # Vista para listar productos
 
 
@@ -200,9 +195,9 @@ def api_lista_productos(request):
     if request.method == 'GET':
         productos = Producto.objects.all().values(
             'id',
-            'nombre_producto',  # Campo existente en Producto
-            'primerasentradas__descripcion',  # Campo relacionado desde PrimerasEntradas
-            'primerasentradas__cantidad',  # Campo relacionado desde PrimerasEntradas
+            'nombre_producto',
+            'descripcion',  # Si está en el modelo Producto
+            'nombre_categoria'  # Esto accede al campo 'nombre' del modelo Categoria
         )
         return JsonResponse(list(productos), safe=False)
     return JsonResponse({'error': 'Método no permitido'}, status=405)
@@ -404,20 +399,15 @@ def lista_primeras_entradas(request):
     
     
 @api_view(['DELETE'])
-def eliminar_producto(request, nombre):
+def eliminar_producto(request, id):
     try:
-        # Buscar todos los productos con el mismo nombre
-        productos = Producto.objects.filter(descripcion=nombre)
-
-        if not productos:
-            return Response({"detail": "Producto no encontrado."}, status=status.HTTP_404_NOT_FOUND)
-
-        # Eliminar el primer producto encontrado
-        productos.first().delete()
-        return Response({"detail": "Producto eliminado exitosamente."}, status=status.HTTP_204_NO_CONTENT)
-
+        # Buscar el producto por ID
+        producto = Producto.objects.get(id=id)
+        producto.delete()
+        return Response({'message': 'Producto eliminado con éxito'}, status=status.HTTP_200_OK)
     except Producto.DoesNotExist:
-        return Response({"detail": "Producto no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'message': 'Producto no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+    
 
 @csrf_exempt
 def manejar_min_max(request, id):
